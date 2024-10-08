@@ -20,7 +20,7 @@ def admin_policy_add(**kwargs):
       >>> r.content
       {'status': 'success', 'policy': 'admins', 'isGroup': False}
     '''
-    cmd = Command(POLICY_COMMAND + 'add {target} {name} {file}')
+    cmd = Command(POLICY_COMMAND + 'create {target} {name} {file}')
 
     return cmd(**kwargs)
 
@@ -34,7 +34,7 @@ def admin_policy_remove(**kwargs):
       >>> r.content
       {'status': 'success', 'policy': 'admins', 'isGroup': False}
     '''
-    cmd = Command(POLICY_COMMAND + 'remove {target} {name}')
+    cmd = Command(POLICY_COMMAND + 'detach {target} {name}')
 
     return cmd(**kwargs)
 
@@ -93,8 +93,8 @@ def admin_policy_set(**kwargs):
         raise KeyError('Only one of user or group arguments can be set.')
 
     if 'group' in kwargs:
-        cmd = Command(POLICY_COMMAND + 'set {target} {name} group={group}')
+        cmd = Command(POLICY_COMMAND + 'attach {target} {name} --group {group}')
     else:
-        cmd = Command(POLICY_COMMAND + 'set {target} {name} user={user}')
+        cmd = Command(POLICY_COMMAND + 'attach {target} {name} --user {user}')
 
     return cmd(**kwargs)
